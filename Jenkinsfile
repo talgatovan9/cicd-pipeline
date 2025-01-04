@@ -33,8 +33,12 @@ pipeline {
           }
         }
 
+        sh '''docker.withRegistry(DOCKER_REGISTRY, DOCKER_CREDENTIALS_ID) {
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push("latest")
+                    }'''
+        }
       }
-    }
 
+    }
   }
-}

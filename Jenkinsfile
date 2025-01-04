@@ -15,7 +15,7 @@ pipeline {
 
     stage('Build docker') {
       steps {
-        sh 'docker build -t cicd-test'
+        sh 'sudo docker build -t cicd-test .'
       }
     }
 

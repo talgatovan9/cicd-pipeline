@@ -26,17 +26,17 @@ pipeline {
         DOCKER_IMAGE = 'talgatovan9/cicd-test'
       }
       steps {
-        script {
-          docker.withRegistry(DOCKER_REGISTRY, DOCKER_CREDENTIALS_ID) {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
-          }
-        }
-
         sh '''docker.withRegistry(DOCKER_REGISTRY, DOCKER_CREDENTIALS_ID) {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }'''
+          script {
+            docker.withRegistry(DOCKER_REGISTRY, DOCKER_CREDENTIALS_ID) {
+              app.push("${env.BUILD_NUMBER}")
+              app.push("latest")
+            }
+          }
+
         }
       }
 

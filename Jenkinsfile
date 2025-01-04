@@ -21,15 +21,15 @@ pipeline {
 
     stage('Push docker image') {
       environment {
-        registry = 'talgatovan9/artifacts'
-        registryCredential = 'dockerhub_id'
+        DOCKER_REGISTRY = 'https://registry.hub.docker.com'
+        DOCKER_CREDENTIALS_ID = 'dockerhub_id'
+        DOCKER_IMAGE = 'talgatovan9/cicd-test'
       }
       steps {
         script {
-          docker.withRegistry('https://registry.hub.docker.com', registryCredential)
-
-          {
-            dockerImage.push()
+          docker.withRegistry(DOCKER_REGISTRY, DOCKER_CREDENTIALS_ID) {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
           }
         }
 

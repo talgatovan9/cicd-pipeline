@@ -25,11 +25,11 @@ pipeline {
         DOCKER_USER = 'talgatovan9'
       }
       steps {
-        sh '''sudo docker image tag cicd-test:latest registry.hub.docker.com/talgatovan9/cicd-test/cicd-test:latest
+        sh '''docker login -u $DOCKER_USER -p $DOCKER_PASS 
 
-docker login -u $DOCKER_USER -p $DOCKER_PASS 
+sudo docker image tag cicd-test:latest registry.hub.docker.com/talgatovan9/cicd-test:latest
 
-sudo docker image push registry.hub.docker.com/talgatovan9/cicd-test/cicd-test:latest'''
+sudo docker image push registry.hub.docker.com/talgatovan9/cicd-test:latest'''
       }
     }
 

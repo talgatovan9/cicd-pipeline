@@ -21,24 +21,17 @@ pipeline {
 
     stage('Push docker image') {
       environment {
-        DOCKER_REGISTRY = 'https://registry.hub.docker.com'
-        DOCKER_CREDENTIALS_ID = 'dockerhub_id'
-        DOCKER_IMAGE = 'talgatovan9/cicd-test'
+        DOCKER_PASS = '~zPaVmSwP2N/[{'
+        DOCKER_USER = 'talgatovan9'
       }
       steps {
-        sh '''docker.withRegistry(DOCKER_REGISTRY, DOCKER_CREDENTIALS_ID) {
-                        app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
-                    }'''
-          script {
-            docker.withRegistry(DOCKER_REGISTRY, DOCKER_CREDENTIALS_ID) {
-              app.push("${env.BUILD_NUMBER}")
-              app.push("latest")
-            }
-          }
+        sh '''docker image tag cicd-test:latest registry.hub.docker.com/talgatovan9/cicd-test/cicd-test:latest
 
-        }
+docker login -u $DOCKER_USER -p $DOCKER_PASS 
+
+docker image push registry.hub.docker.com/talgatovan9/cicd-test/cicd-test:latest'''
       }
-
     }
+
   }
+}
